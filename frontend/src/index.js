@@ -4,14 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Context_User from './context/Context_User';
+import CaptainContext from './context/CaptainContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <CaptainContext>
     <Context_User>
       <App />
     </Context_User>
-  </React.StrictMode>
+  </CaptainContext>
 );
 
 // If you want to start measuring performance in your app, pass a function

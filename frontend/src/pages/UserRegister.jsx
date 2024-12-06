@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { UserDataContext } from '../context/Context_User';
+
 
 const UserRegister = () => {
   const [email, setEmail] = useState('')
@@ -8,21 +11,47 @@ const UserRegister = () => {
   const [lastName, setLastName] = useState('')
   const [userData, setUserData] = useState({})
 
-  const submitHandler = (e) => {
+  const [loading,setLoading] = useState(false)
+
+  const { user , setUser } = useContext(UserDataContext)
+
+  const navigate = useNavigate()
+
+  const submitHandler = async(e) => {
     e.preventDefault()
-    setUserData({
+    setLoading(true)
+    const newUser = {
       email: email,
       password: password,
       fullname:{
-        firstName:firstName,
-        lastName:lastName
+        firstname:firstName,
+        lastname:lastName
       }
-    })
 
+    }
+
+    try{
+
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/users/register`,newUser)
+      
+      if(response.status === 201){
+        const data = response.data
+        
+        setUser(data.user)
+        localStorage.setItem('token',data.token)
+
+        navigate('/home')
+      }
+      }catch(error){
+        console.log(error)
+      }
+      
+    
     setEmail('');
     setPassword('');
     setFirstName('');
     setLastName('');
+    setLoading(false)
   }
 
   return (
@@ -80,7 +109,8 @@ const UserRegister = () => {
           />
           <button
             className='bg-[#111] text-[#fff] mb-7 font-semibold rounded px-4 py-2 border w-full text-lg placeholder:text-base'
-          >Login</button>
+            disabled={loading}
+          >  { loading ? 'Loading ...': 'Register' }</button>
 
           <p className='text-center'>Already have an Account?
             <Link to={`/user/login`} className='text-blue-600'> Login Here</Link>

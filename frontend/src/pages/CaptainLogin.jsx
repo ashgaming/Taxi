@@ -1,18 +1,32 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { CaptainDataContext } from '../context/CaptainContext'
 
 const CaptainLogin = () => {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
-  const [captainData,setCaptainData] = useState({})
 
-  const submitHandler = (e) => {
+  const navigate = useNavigate();
+
+  const { captain , setCaptain } = useContext(CaptainDataContext);
+
+  const submitHandler = async(e) => {
     e.preventDefault()
 
-    setCaptainData({
-      email:email,
-      password:password
-    })
+    const CaptainData = {
+      email,
+      password
+    }
+
+    const { status, data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/captains/login`, CaptainData)
+
+    if (status === 201) {
+      setCaptain(data)
+      localStorage.setItem('token', data.token)
+      navigate('/captian-home')
+    }
+
 
     setEmail('');
     setPassword('');
@@ -47,7 +61,8 @@ const CaptainLogin = () => {
           />
           <button
             className='bg-[#111] text-[#fff] mb-7 font-semibold rounded px-4 py-2 border w-full text-lg placeholder:text-base'
-          >Login</button>
+          > Captain Login
+          </button>
 
           <p className='text-center'>Join a fleet? 
           <Link to={`/captain/register`} className='text-blue-600'> Register as a Captain</Link>
