@@ -1,23 +1,25 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const WaitForDriver = (props) => {
-  return (
-    <div>
-      <h3 className='text-2xl font-semibold mb-5'>
+    return (
+        <div>
+            <h3 className='text-2xl font-semibold mb-5'>
                 <span onClick={() => {
-                     props.setWaitForDriverPanelOpen(false)
-                     props.setLookingForDriverPanelOpen(true)
+                    props.setWaitForDriverPanelOpen(false)
+                    props.setLookingForDriverPanelOpen(true)
                 }}><i class="ri-arrow-go-back-line"></i></span>
                 Waiting for Driver
 
             </h3>
 
             <div className='flex items-center justify-between'>
-            <img className='h-10' src="https://tse1.mm.bing.net/th?id=OIP.XZA93U1UwTeR6qmfNHJEwgHaDV&pid=Api&P=0&h=180" alt="" />
+                <img className='h-10' src="https://tse1.mm.bing.net/th?id=OIP.XZA93U1UwTeR6qmfNHJEwgHaDV&pid=Api&P=0&h=180" alt="" />
                 <div className='text-right'>
                     <h2 className='text-lg font-medium'>Ashish</h2>
                     <h4 className='text-xl font-semibold -mt-1 -mb-1'>MH14 JY 4526</h4>
-                    <p className='text-sm font-medium text-gray-600'>Maruti Suiudv</p>
+                    <p className='text-sm font-medium
+                     text-gray-600'>Maruti Suiudv</p>
                 </div>
             </div>
             <div className='flex gap-3 justify-between flex-col items-center' >
@@ -39,25 +41,37 @@ const WaitForDriver = (props) => {
                         </div>
                     </div>
 
-                    <div className='flex items-center gap-5 p-3 border-b-2'>
+                    {
+                        /*
+                        
+                        <div className='flex items-center gap-5 p-3 border-b-2'>
                         <i className="text-lg ri-currency-line"></i>
                         <div>
-                            <h3 className='text-lg font-semibold'>Rs 185.15</h3>
-                            <p className='text-sm -ml-1 text-gray-600'>Cash Cash</p>
+                        <h3 className='text-lg font-semibold'>Rs 185.15</h3>
+                        <p className='text-sm -ml-1 text-gray-600'>Cash Cash</p>
                         </div>
-                    </div>
+                        </div>
+                        */
+                    }
                 </div>
             </div>
 
-      <button 
-            onClick={()=>{
-                props.setWaitForDriverPanelOpen(false)
-                props.setLookingForDriverPanelOpen(true)
-            }}
-            className='w-full bg-red-600 text-white font-semibold p-2 rounded-full'>Cancel</button>
+            <button
+                onClick={() => {
+                    props.setWaitForDriverPanelOpen(false)
+                    props.setLookingForDriverPanelOpen(true)
+                }}
+                className='w-full bg-red-600 text-white font-semibold p-2 rounded-full'>Cancel</button>
 
-    </div>
-  )
+
+            <button
+            
+                className='w-full bg-green-600 text-white font-semibold p-2 rounded-full mt-2'>
+                    <Link to={`/riding`}
+                >Continue</Link></button>
+
+        </div>
+    )
 }
 
 export default WaitForDriver

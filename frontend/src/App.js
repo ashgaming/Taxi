@@ -7,6 +7,7 @@ import UserProtectedWrapper from './wrappers/UserProtectedWrapper';
 import CaptainAuthWrapper from './wrappers/CaptainAuthWrapper';
 
 
+
 const Start = React.lazy(() => import('./pages/Start'))
 const Home = React.lazy(() => import('./pages/Home'))
 const CaptianHome = React.lazy(() => import('./pages/CaptianHome'));
@@ -15,6 +16,8 @@ const CaptainLogin = React.lazy(() => import('./pages/CaptainLogin'))
 const CaptainRegister = React.lazy(() => import('./pages/CaptainRegister'))
 const UserRegister = React.lazy(() => import('./pages/UserRegister'))
 const UserLogout = React.lazy(() => import('./pages/UserLogout'));
+const Riding  = React.lazy(() => import( './pages/Riding'));
+const CaptainRiding = React.lazy(() => import( './pages/CaptainRiding'));
 
 function App() {
 
@@ -43,10 +46,28 @@ function App() {
       option: {}
     },
     {
+      path: '/captain-riding',
+      component: ()=>(
+        <CaptainAuthWrapper>
+          <CaptainRiding />
+        </CaptainAuthWrapper>
+      ),
+      option: {}
+    },
+    {
       path: '/user-logout',
       component: ()=>(
         <UserProtectedWrapper>
           <UserLogout/>
+        </UserProtectedWrapper>
+      ),
+      option: {}
+    },
+    {
+      path: '/riding',
+      component: ()=>(
+        <UserProtectedWrapper>
+          <Riding/>
         </UserProtectedWrapper>
       ),
       option: {}
